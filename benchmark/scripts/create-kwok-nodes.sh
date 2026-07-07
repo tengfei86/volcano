@@ -212,11 +212,11 @@ install_kwok_if_needed
 if [[ "${ENABLE_TOPOLOGY}" == "true" ]]; then
     create_kwok_nodes_with_topology
     log_info "Waiting for all KWOK nodes to be ready..."
-    kubectl wait --for=condition=Ready node -l type=kwok --timeout=120s
+    kubectl wait --for=condition=Ready node -l type=kwok --timeout=1200s
 else
     create_kwok_nodes_flat
     log_info "Waiting for all KWOK nodes to be ready..."
-    kubectl wait --for=condition=Ready node -l type=kwok --timeout=120s
+    kubectl wait --for=condition=Ready node -l type=kwok --timeout=1200s
 fi
 
 local_node_count=$(kubectl get nodes -l type=kwok --no-headers | wc -l | tr -d ' ')

@@ -68,7 +68,7 @@ log_info "  controller qps/burst: ${VOLCANO_CONTROLLER_KUBE_API_QPS}/${VOLCANO_C
 if [[ "${INSTALL_MODE}" == "release" ]]; then
     log_info "Installing Volcano release ${VOLCANO_VERSION} from official Helm repo..."
 
-    helm repo add volcano-sh https://volcano-sh.github.io/volcano 2>/dev/null || true
+    helm repo add volcano-sh https://volcano-sh.github.io/helm-charts 2>/dev/null || true
     helm repo update volcano-sh
 
     helm install volcano volcano-sh/volcano \

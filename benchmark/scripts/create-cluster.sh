@@ -27,14 +27,16 @@ log_info "Rendered kind config: ${RENDERED_CONFIG}"
 log_info "Creating Kind cluster ${CLUSTER_NAME}..."
 kind create cluster \
     --config "${RENDERED_CONFIG}" \
-    --name "${CLUSTER_NAME}"
+    --name "${CLUSTER_NAME}" \
+    --retain \
+    --verbosity=6
 
 log_info "Exporting kubeconfig..."
 kind get kubeconfig --name "${CLUSTER_NAME}" > "${BENCHMARK_DIR}/kubeconfig"
 export KUBECONFIG="${BENCHMARK_DIR}/kubeconfig"
 
 log_info "Waiting for cluster to be ready..."
-kubectl wait --for=condition=Ready node --all --timeout=120s
+kubectl wait --for=condition=Ready node --all --timeout=1200s
 
 log_info "Cluster ${CLUSTER_NAME} created successfully"
 kubectl cluster-info
