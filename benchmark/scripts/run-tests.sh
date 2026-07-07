@@ -133,6 +133,9 @@ fi
 
 cd "${VOLCANO_ROOT}"
 set +e
+# /tmp may be mounted noexec; redirect Go's build cache to a writable+exec dir
+export GOTMPDIR="${GOTMPDIR:-${HOME}/.cache/go-tmp}"
+mkdir -p "${GOTMPDIR}"
 go test -count=1 -v -timeout 1800s "./benchmark/testcases/${SCENE_DIR}/..." -run TestFromConfig 2>&1 | tee "${RESULT_FILE}"
 TEST_EXIT_CODE=${PIPESTATUS[0]}
 set -e
